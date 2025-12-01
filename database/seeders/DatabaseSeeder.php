@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Role;
+use App\Enums\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,16 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // SUPER ADMIN
         $user = User::firstOrCreate(
-            ['email' => 'test@example.com'],
+            ['email' => 'haris.hisham22@gmail.com'],
             [
-                'name' => 'Test User',
+                'name' => 'Haris Hisham',
                 'password' => 'password',
                 'email_verified_at' => now(),
             ]
         );
 
-        $user->assignRole(Role::ADMIN);
+        $user->assignRole(Role::SUPER_ADMIN->value);
 
         $this->call([
             RoleSeeder::class,

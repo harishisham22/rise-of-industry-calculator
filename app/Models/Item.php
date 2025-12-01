@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'type',
@@ -16,39 +18,32 @@ class Item extends Model
 
     protected $casts = [
         'name' => 'string',
-        'type' => ItemType::class,
+        'type' => 'string',
         'description' => 'string',
     ];
 
     protected $guarded = [
         'id',
-        'created_at',
-        'updated_at',
-    ];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at',
     ];
 
     public function requireMaterials()
     {
-        return $this->hasMany(ItemRequireMaterial::class);
+        return $this->belongsToMany(Item::class, ItemRequireMaterial::class);
     }
 
     public function producedBy()
     {
-        return $this->hasMany(BuildingProduceItem::class);
+        return $this->belongsToMany(Building::class, BuildingProduceItem::class);
     }
 
     public function requiredBy()
     {
-        return $this->hasMany(BuildingRequireItem::class);
+        return $this->belongsToMany(Building::class, BuildingRequireItem::class);
     }
 
     public function storedBy()
     {
-        return $this->hasMany(BuildingStoreItem::class);
+        return $this->belongsToMany(Building::class, BuildingStoreItem::class);
     }
 
     public function scopeType(Builder $query, ?string $type)

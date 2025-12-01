@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BuildingStoreItem extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'building_id',
         'item_id',
@@ -20,8 +22,6 @@ class BuildingStoreItem extends Model
 
     protected $guarded = [
         'id',
-        'created_at',
-        'updated_at',
     ];
 
     public function building()

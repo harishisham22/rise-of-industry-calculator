@@ -11,12 +11,12 @@ class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     */
+     */public function run()
     public function run(): void
     {
         DB::transaction(function () {
             foreach (Role::cases() as $role) {
-                Role::firstOrCreate(['name' => $role->name]);
+                Role::firstOrCreate(['name' => $role->value]);
             }
         });
     }

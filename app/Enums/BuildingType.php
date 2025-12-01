@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Enums;
 
 enum BuildingType: string
 {
     case SHOP = 'shop';
     case FACTORY = 'factory';
-    case RESOURCE_COLLECTOR = 'resource_collector';
+    case RESOURCE_COLLECTOR = 'resource collector';
     case STORAGE = 'storage';
 }

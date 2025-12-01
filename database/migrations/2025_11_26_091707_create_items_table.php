@@ -1,6 +1,6 @@
 <?php
 
-use App\ItemType;
+use App\Models\ItemType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ItemType::cases());
+            $table->foreignIdFor(ItemType::class);
             $table->text('description')->nullable();
         });
     }

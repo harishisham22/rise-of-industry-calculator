@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BuildingProduceItem extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
         'building_id',
         'item_id',

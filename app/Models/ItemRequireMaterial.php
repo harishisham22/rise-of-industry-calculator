@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemRequireMaterial extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'item_id',
         'material_id',
@@ -19,8 +21,6 @@ class ItemRequireMaterial extends Model
 
     protected $guarded = [
         'id',
-        'created_at',
-        'updated_at',
     ];
 
     public function item()

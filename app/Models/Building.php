@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'type',
@@ -15,34 +17,27 @@ class Building extends Model
 
     protected $casts = [
         'name' => 'string',
-        'type' => BuildingType::class,
+        'type' => 'string',
         'description' => 'string',
     ];
 
     protected $guarded = [
         'id',
-        'created_at',
-        'updated_at',
-    ];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at',
     ];
 
     public function produceItems()
     {
-        return $this->hasMany(BuildingProduceItem::class);
+        return $this->belongsToMany(Item::class, BuildingProduceItem::class);
     }
 
     public function requireItems()
     {
-        return $this->hasMany(BuildingRequireItem::class);
+        return $this->belongsToMany(Item::class, BuildingRequireItem::class);
     }
 
     public function storeItems()
     {
-        return $this->hasMany(BuildingStoreItem::class);
+        return $this->belongsToMany(Item::class, BuildingStoreItem::class);
     }
 
     public function scopeType(Builder $query, ?string $type)
