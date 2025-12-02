@@ -11,13 +11,13 @@ class Building extends Model
 
     protected $fillable = [
         'name',
-        'type',
+        'type_id',
         'description',
     ];
 
     protected $casts = [
         'name' => 'string',
-        'type' => 'string',
+        'type_id' => 'integer',
         'description' => 'string',
     ];
 
@@ -42,7 +42,7 @@ class Building extends Model
 
     public function scopeType(Builder $query, ?string $type)
     {
-        return $query->when($type, fn($query) => $query->where('type', $type));
+        return $query->when($type, fn($query) => $query->whereRelation('type', 'name', $type));
     }
 
     public function scopeSearch(Builder $query, ?string $search)

@@ -14,7 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // SUPER ADMIN
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
+        ]);
+
         $user = User::firstOrCreate(
             ['email' => 'haris.hisham22@gmail.com'],
             [
@@ -25,10 +29,5 @@ class DatabaseSeeder extends Seeder
         );
 
         $user->assignRole(Role::SUPER_ADMIN->value);
-
-        $this->call([
-            RoleSeeder::class,
-            PermissionSeeder::class,
-        ]);
     }
 }
