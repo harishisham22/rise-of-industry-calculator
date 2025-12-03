@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserPermissionRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateUserPermissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->can(Permission::UPDATE_USER->value);
     }
 
     /**
@@ -23,8 +24,8 @@ class UpdateUserPermissionRequest extends FormRequest
     {
         return [
             'user_id' => ['nullable', 'exists:users,id'],
-            'permissions' => ['required', 'array'],
-            'permissions.*' => ['required', 'string', 'exists:permissions,name'],
+            'roles' => ['required', 'array'],
+            'roles.*' => ['required', 'string', 'distinct', 'exists:roles,name'],
         ];
     }
 }

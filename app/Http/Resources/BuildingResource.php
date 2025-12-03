@@ -17,6 +17,7 @@ class BuildingResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'type_id' => $this->type_id,
             'type' => $this->type,
             'description' => $this->description,
             'produces' => $this->produceItems,

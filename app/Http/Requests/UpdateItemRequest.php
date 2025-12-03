@@ -2,17 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBuildingTypeRequest extends FormRequest
+class UpdateItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->user()->can(Permission::CREATE_BUILDING_TYPE->value);
+        return false;
     }
 
     /**
@@ -23,8 +22,7 @@ class StoreBuildingTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
+            //
         ];
     }
 }

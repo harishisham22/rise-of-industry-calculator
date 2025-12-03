@@ -13,31 +13,31 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::prefix('users')->group(function () {
-    Route::view('users', 'users.index')->name('users.index');
-    Route::view('users/create', 'users.create')->name('users.create');
-    Route::view('users/{user}', 'users.show')->name('users.show');
-    Route::view('users/{user}/edit', 'users.edit')->name('users.edit');
+    Route::view('', 'users.index')->name('users.index');
+    Route::view('/create', 'users.create')->name('users.create');
+    Route::view('/{user}', 'users.show')->name('users.show');
+    Route::view('/{user}/edit', 'users.edit')->name('users.edit');
 });
 
 Route::prefix('buildings')->group(function () {
-    Route::view('buildings', 'buildings.index')->name('buildings.index');
-    Route::view('buildings/create', 'buildings.create')->name('buildings.create');
-    Route::view('buildings/{building}', 'buildings.show')->name('buildings.show');
-    Route::view('buildings/{building}/edit', 'buildings.edit')->name('buildings.edit');
+    Route::view('', 'buildings.index')->name('buildings.index');
+    Route::view('/create', 'buildings.create')->name('buildings.create');
+    Route::view('/{building}', 'buildings.show')->name('buildings.show');
+    Route::view('/{building}/edit', 'buildings.edit')->name('buildings.edit');
 });
 
 Route::prefix('items')->group(function () {
-    Route::view('items', 'items.index')->name('items.index');
-    Route::view('items/create', 'items.create')->name('items.create');
-    Route::view('items/{item}', 'items.show')->name('items.show');
-    Route::view('items/{item}/edit', 'items.edit')->name('items.edit');
+    Route::view('', 'items.index')->name('items.index');
+    Route::view('/create', 'items.create')->name('items.create');
+    Route::view('/{item}', 'items.show')->name('items.show');
+    Route::view('/{item}/edit', 'items.edit')->name('items.edit');
 });
 
 Route::prefix('productions')->group(function () {
-    Route::view('productions', 'productions.index')->name('productions.index');
-    Route::view('productions/create', 'productions.create')->name('productions.create');
-    Route::view('productions/{production}', 'productions.show')->name('productions.show');
-    Route::view('productions/{production}/edit', 'productions.edit')->name('productions.edit');
+    Route::view('', 'productions.index')->name('productions.index');
+    Route::view('/create', 'productions.create')->name('productions.create');
+    Route::view('/{production}', 'productions.show')->name('productions.show');
+    Route::view('/{production}/edit', 'productions.edit')->name('productions.edit');
 });
 
 Route::middleware(['auth'])->group(function () {

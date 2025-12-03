@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateItemTypeRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateItemTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->user()->can(Permission::UPDATE_ITEM_TYPE->value);
     }
 
     /**
@@ -22,7 +23,8 @@ class UpdateItemTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }

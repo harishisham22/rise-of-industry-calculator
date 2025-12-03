@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\BuildingType;
+use App\Enums\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -13,7 +14,7 @@ class UpdateBuildingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->can(Permission::UPDATE_BUILDING->value);
     }
 
     /**

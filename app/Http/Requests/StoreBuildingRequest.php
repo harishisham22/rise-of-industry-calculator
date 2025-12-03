@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBuildingRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreBuildingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->can(Permission::CREATE_BUILDING->value);
     }
 
     /**
@@ -22,9 +23,9 @@ class StoreBuildingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255'],
             'building_type_id' => ['required', 'exists:building_types,id'],
-            'description' => 'nullable|string',
+            'description' => ['nullable', 'string'],
         ];
     }
 }

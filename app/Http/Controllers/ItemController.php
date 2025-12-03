@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ItemResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -11,32 +12,38 @@ class ItemController extends Controller
     {
         $items = Item::all();
 
-        return $items;
+        return ItemResource::collection($items);
     }
 
-    public function fetch(Item $item)
+    public function fetch(string $itemId)
     {
-        return $item;
+        $item = Item::withAllRelations()->findOrFail($itemId);
+
+        return ItemResource::make($item);
     }
 
     public function store(Request $request)
     {
         $item = Item::create($request->all());
 
-        return $item;
+        return ItemResource::make($item);
     }
 
-    public function update(Request $request, Item $item)
+    public function update(Request $request, string $itemId)
     {
+        $item = Item::withAllRelations()->findOrFail($itemId);
+
         $item->update($request->all());
 
-        return $item;
+        return ItemResource::make($item);
     }
 
     public function destroy(Item $item)
     {
         $item->delete();
 
-        return $item;
+        return response()->json([
+            'message' => 'Item deleted successfully',
+        ], 200);
     }
 }

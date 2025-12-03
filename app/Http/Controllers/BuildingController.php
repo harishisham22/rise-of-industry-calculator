@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBuildingRequest;
 use App\Http\Requests\UpdateBuildingRequest;
+use App\Http\Resources\BuildingResource;
 use App\Models\Building;
 use Illuminate\Http\Request;
 
@@ -13,32 +14,36 @@ class BuildingController extends Controller
     {
         $buildings = Building::all();
 
-        return $buildings;
+        return BuildingResource::collection($buildings);
     }
 
-    public function fetch(Building $building)
+    public function fetch(string $buildingId)
     {
-        return $building;
+        $building = Building::withAllRelations()->findOrFail($buildingId);
+
+        return BuildingResource::make($building);
     }
 
     public function store(StoreBuildingRequest $request)
     {
         $building = Building::create($request->validated());
 
-        return $building;
+        return BuildingResource::make($building);
     }
 
     public function update(UpdateBuildingRequest $request, Building $building)
     {
         $building->update($request->validated());
-        
-        return $building;
+
+        return BuildingResource::make($building);
     }
 
     public function destroy(Building $building)
     {
         $building->delete();
 
-        return 200;
+        return response()->json([
+            'message' => 'Building deleted successfully',
+        ], 200);
     }
 }

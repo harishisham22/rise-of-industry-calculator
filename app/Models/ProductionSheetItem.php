@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductionSheetItem extends Model
 {
-    protected $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'production_sheet_id',
@@ -15,7 +15,7 @@ class ProductionSheetItem extends Model
     ];
 
     protected $guarded = ['id'];
-    
+
     protected $casts = [
         'production_sheet_id' => 'integer',
         'item_id' => 'integer',

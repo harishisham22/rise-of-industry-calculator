@@ -49,4 +49,14 @@ class Building extends Model
     {
         return $query->when($search, fn($query) => $query->where('name', 'like', "%{$search}%"));
     }
+
+    public function scopeWithAllRelations(Builder $query)
+    {
+        return $query->with([
+            'produceItems',
+            'requireItems',
+            'storeItems',
+            'type',
+        ]);
+    }
 }

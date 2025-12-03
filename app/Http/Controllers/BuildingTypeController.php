@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBuildingTypeRequest;
+use App\Http\Requests\UpdateBuildingTypeRequest;
 use App\Models\BuildingType;
 use Illuminate\Http\Request;
 
