@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\ItemType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,6 +45,11 @@ class Item extends Model
         return $this->belongsToMany(Building::class, BuildingStoreItem::class);
     }
 
+    public function itemType()
+    {
+        return $this->belongsTo(ItemType::class);
+    }
+
     public function scopeType(Builder $query, ?string $type)
     {
         return $query->when($type, fn($query) => $query->whereRelation('type', 'name', $type));
@@ -63,7 +67,7 @@ class Item extends Model
             'producedBy',
             'requiredBy',
             'storedBy',
-            'type',
+            'itemType',
         ]);
     }
 }

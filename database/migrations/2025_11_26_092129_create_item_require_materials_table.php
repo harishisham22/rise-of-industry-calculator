@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('item_require_materials', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Item::class);
-            $table->foreignIdFor(Item::class, 'material_id');
+            $table->foreignIdFor(Item::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Item::class, 'material_id')->constrained()->cascadeOnDelete();
             $table->integer('amount')->default(0);
         });
     }

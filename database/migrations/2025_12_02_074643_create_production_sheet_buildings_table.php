@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('production_sheet_buildings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ProductionSheet::class);
-            $table->foreignIdFor(Building::class);
+            $table->foreignIdFor(ProductionSheet::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Building::class)->constrained()->cascadeOnDelete();
             $table->integer('quantity')->default(0);
         });
     }

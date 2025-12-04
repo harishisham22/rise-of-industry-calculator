@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware(['auth:sanctum', 'verified', 'api'])->group(function () {
+Route::middleware(['api'])->group(function () {
     Route::prefix('buildings')->group(function () {
         Route::prefix('types')->group(function () {
             Route::get('/', [BuildingTypeController::class, 'index']);

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(ItemType::class);
+            $table->foreignIdFor(ItemType::class)->constrained()->cascadeOnDelete();
             $table->text('description')->nullable();
         });
     }

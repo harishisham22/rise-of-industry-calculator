@@ -40,7 +40,12 @@ class Building extends Model
         return $this->belongsToMany(Item::class, BuildingStoreItem::class);
     }
 
-    public function scopeType(Builder $query, ?string $type)
+    public function buildingType()
+    {
+        return $this->belongsTo(BuildingType::class);
+    }
+
+    public function scopeByType(Builder $query, ?string $type)
     {
         return $query->when($type, fn($query) => $query->whereRelation('type', 'name', $type));
     }
@@ -56,7 +61,7 @@ class Building extends Model
             'produceItems',
             'requireItems',
             'storeItems',
-            'type',
+            'buildingType',
         ]);
     }
 }

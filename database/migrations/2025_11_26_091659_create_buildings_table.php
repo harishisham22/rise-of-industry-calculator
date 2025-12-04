@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(BuildingType::class);
+            $table->foreignIdFor(BuildingType::class)->constrained()->cascadeOnDelete();
             $table->text('description')->nullable();
         });
     }
