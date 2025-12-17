@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\ItemController;
+use App\Livewire\Buildings\Index as BuildingsIndex;
+use App\Livewire\Buildings\Create as BuildingsCreate;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -20,17 +24,19 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix('buildings')->group(function () {
-    Route::view('', 'buildings.index')->name('buildings.index');
-    Route::view('/create', 'buildings.create')->name('buildings.create');
+    Route::view('', BuildingsIndex::class)->name('buildings.index');
+    Route::view('/create', BuildingsCreate::class)->name('buildings.create');
     Route::view('/{building}', 'buildings.show')->name('buildings.show');
     Route::view('/{building}/edit', 'buildings.edit')->name('buildings.edit');
+    Route::delete('/{building}', [BuildingController::class, 'destroy'])->name('buildings.destroy');
 });
 
 Route::prefix('items')->group(function () {
-    Route::view('', 'items.index')->name('items.index');
+    Route::view('', ItemIndex::class)->name('items.index');
     Route::view('/create', 'items.create')->name('items.create');
     Route::view('/{item}', 'items.show')->name('items.show');
     Route::view('/{item}/edit', 'items.edit')->name('items.edit');
+    Route::delete('/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
 
 Route::prefix('productions')->group(function () {
