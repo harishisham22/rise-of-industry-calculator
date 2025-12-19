@@ -8,21 +8,32 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public function listBuildingTypes()
+    public bool $showEditModal = false;
+    public ?Building $building = null;
+
+    public function edit($id)
     {
-        return BuildingType::all();
+        $this->building = Building::findOrFail($id);
+        $this->showEditModal = true;
     }
 
-    public function listBuildings()
+    public function confirmDelete($id)
     {
-        return Building::withAllRelations()->all();
+        $this->building = Building::findOrFail($id);
+        $this->showDeleteModal = true;
+    }
+
+    public function delete()
+    {
+        $this->building->delete();
+        $this->showDeleteModal = false;
     }
 
     public function render()
     {
-        return view('livewire.buildings.index')->with([
-            'building_types' => $this->listBuildingTypes(),
-            'buildings' => $this->listBuildings(),
+        return view('livewire.buildings.index', [
+            'building_types' => BuildingType::all(),
+            'buildings' => Building::with('buildingType')->get(),
         ]);
     }
 }

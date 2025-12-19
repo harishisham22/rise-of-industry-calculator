@@ -11,39 +11,60 @@
     </div>
 
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
-        <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-            <thead class="bg-gray-50">
+        <table class="w-full text-left text-sm">
+            <thead class="border-b">
                 <tr>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Description</th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Type</th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+            <tbody>
                 @forelse ($buildings as $building)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-900">{{ strtoupper($building->name) }}</td>
-                        <td class="px-6 py-4">{{ $building->description ?? '-' }}</td>
-                        <td class="px-6 py-4">{{ strtoupper($building->buildingType->name) }}</td>
-                        <td class="px-6 py-4">
+                    <tr class="border-b py-2 px-2">
+                        <td>{{ strtoupper($building->name) }}</td>
+                        <td>{{ $building->description ?? '-' }}</td>
+                        <td>{{ strtoupper($building->buildingType->name) }}</td>
+                        <td>
                             <div class="flex justify-end gap-4">
-                                <a href="{{ route('buildings.edit', $building) }}"
-                                    class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                                <flux:button icon="pencil-square" wire:click="edit({{ $building->id }})" />
+                                <flux:modal name="edit-building-{{ $building->id }}" wire:model="showEditModal" :dismissible="false">
+                                    <div class="space-y-6">
+                                        <div>
+                                            <flux:heading size="lg">Edit building</flux:heading>
+                                            <flux:text class="mt-2">Make changes to your building details.</flux:text>
+                                        </div>
+
+                                        <flux:input label="Name" placeholder="Enter building name"
+                                            wire:model="{{ $building->name }}" />
+                                        <flux:select label="Type" wire:model="{{ $building->building_type_id }}"
+                                            placeholder="Select building type">
+                                            @foreach ($building_types as $type)
+                                                <option value="{{ $type->id }}">{{ strtoupper($type->name) }}</option>
+                                            @endforeach
+                                        </flux:select>
+                                        <flux:textarea label="Description" placeholder="Enter building description"
+                                            wire:model="{{ $building->description }}" />
+
+                                        <div class="flex">
+                                            <flux:spacer />
+
+                                            <flux:button type="submit" variant="primary">Save changes</flux:button>
+                                        </div>
+                                    </div>
+                                </flux:modal>
+
+                                <flux:button icon="trash" variant="danger" wire:click="delete({{ $building->id }})" />
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="px-6 py-4 text-center text-gray-500">No buildings found.</td>
+                        <td colspan="4" class="text-center">No buildings found.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
-    </div>
-
-    <div>
-        {{ $buildings->links() }}
     </div>
 </div>

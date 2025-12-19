@@ -5,7 +5,7 @@ namespace App\Livewire\Buildings;
 use App\Models\Building;
 use Livewire\Component;
 
-class Update extends Component
+class Edit extends Component
 {
     public string $name;
     public int $type_id;
@@ -22,6 +22,9 @@ class Update extends Component
     public function mount(Building $building)
     {
         $this->building = $building;
+        $this->name = $building->name;
+        $this->type_id = $building->type_id;
+        $this->description = $building->description;
     }
 
     public function update()
@@ -34,12 +37,12 @@ class Update extends Component
             'description' => $this->description,
         ]);
 
-        return view('livewire.buildings.index');
+        $this->redirectRoute('buildings.index');
     }
 
     public function render()
     {
-        return view('livewire.buildings.update')->with([
+        return view('livewire.buildings.edit')->with([
             'building' => $this->building,
         ]);
     }

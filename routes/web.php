@@ -4,6 +4,13 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\ItemController;
 use App\Livewire\Buildings\Index as BuildingsIndex;
 use App\Livewire\Buildings\Create as BuildingsCreate;
+use App\Livewire\Buildings\Edit as BuildingsEdit;
+use App\Livewire\Items\Index as ItemIndex;
+use App\Livewire\Items\Create as ItemCreate;
+use App\Livewire\Items\Edit as ItemEdit;
+use App\Livewire\Productions\Index as ProductionsIndex;
+use App\Livewire\Productions\Create as ProductionsCreate;
+use App\Livewire\Productions\Edit as ProductionsEdit;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -24,26 +31,21 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix('buildings')->group(function () {
-    Route::view('', BuildingsIndex::class)->name('buildings.index');
-    Route::view('/create', BuildingsCreate::class)->name('buildings.create');
-    Route::view('/{building}', 'buildings.show')->name('buildings.show');
-    Route::view('/{building}/edit', 'buildings.edit')->name('buildings.edit');
-    Route::delete('/{building}', [BuildingController::class, 'destroy'])->name('buildings.destroy');
+    Route::get('', BuildingsIndex::class)->name('buildings.index');
+    Route::get('/create', BuildingsCreate::class)->name('buildings.create');
+    Route::get('/{building}', BuildingsEdit::class)->name('buildings.edit');
 });
 
 Route::prefix('items')->group(function () {
-    Route::view('', ItemIndex::class)->name('items.index');
-    Route::view('/create', 'items.create')->name('items.create');
-    Route::view('/{item}', 'items.show')->name('items.show');
-    Route::view('/{item}/edit', 'items.edit')->name('items.edit');
-    Route::delete('/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+    Route::get('', ItemIndex::class)->name('items.index');
+    Route::get('/create', ItemCreate::class)->name('items.create');
+    Route::get('/{item}/edit', ItemEdit::class)->name('items.edit');
 });
 
 Route::prefix('productions')->group(function () {
-    Route::view('', 'productions.index')->name('productions.index');
-    Route::view('/create', 'productions.create')->name('productions.create');
-    Route::view('/{production}', 'productions.show')->name('productions.show');
-    Route::view('/{production}/edit', 'productions.edit')->name('productions.edit');
+    Route::get('', ProductionsIndex::class)->name('productions.index');
+    Route::get('/create', ProductionsCreate::class)->name('productions.create');
+    Route::get('/{production}', ProductionsEdit::class)->name('productions.edit');
 });
 
 Route::middleware(['auth'])->group(function () {
